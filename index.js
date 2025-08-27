@@ -51,8 +51,8 @@ console.log("libro eliminado: ", eliminado);
 console.log("biblioteca desoues de eliminar:", biblioteca);
 
 function buscarlibroportitulo(biblioteca, titulo){
-    return biblioteca.filter(libro = >
-        libro.titulo.toLowerCase().includes(titulo.toLoweCase())
+    return biblioteca.filter(libro =>
+        libro.titulo.toLowerCase().includes(titulo.toLowerCase)
 
     );
 
@@ -71,10 +71,22 @@ function prestarlibro(biblioteca, id, persona){
     }
 return null;
 }
+function devolverlibro(biblioteca, id) {
+    const libro = biblioteca.find(libro => libro.id === id);
+    if (libro && !libro.disponible) {
+        libro.disponible = true;
+        libro.prestado = null;
+        libro.fechadelprestamo = null;
+        libro.fechadelvencimiento = null;
+        return libro;
+    }
+    return null;
+}
+
 const prestado = prestarlibro(biblioteca, libro2.id, "juan perez");
 console.log("libro prestado:" , prestado);
 
-function listadisponible(bibilioteca);{
+function listadisponible(bibilioteca){
 
 
     return bibilioteca.filter(libro => libro.disponible);
@@ -83,6 +95,26 @@ function listadisponible(bibilioteca);{
 }
  console.log("libros disponibles:" , listadisponible(bibilioteca));
  
+function agregarlibroabiblioteca(bibilioteca, titulo, autor, genero, isbn) {
+    const existe = bibilioteca.some(libro => libro.isbn === isbn);
 
+    if(existe) {
+        console.log("el libro no existe en esta biblioteca." );
+        return null;
+
+    }
+    const nuevolibro =  crearlibro(titulo, autor, genero, isbn);
+    bibilioteca.push(nuevolibro);
+    return nuevolibro;
+
+}
+function contarLibros(biblioteca) {
+    return {
+        total: biblioteca.length,
+        disponibles: biblioteca.filter(l => l.disponible).length,
+        prestados: biblioteca.filter(l => !l.disponible).length
+    };
+}
+console.log("estadisticas: ", contarLibros(bibilioteca));
 
 {}
