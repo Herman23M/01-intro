@@ -1,6 +1,4 @@
-notepad README.md
-
-\# Taller de Paradigmas
+Taller de Paradigmas
 
 ejercicio 1
 
